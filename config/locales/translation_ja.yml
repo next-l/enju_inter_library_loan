@@ -1,0 +1,20 @@
+ja:
+  activerecord:
+    models:
+      inter_library_loan: 相互貸借
+
+    attributes:
+      inter_library_loan:
+        requested_at: 依頼時刻
+        shipped_at: 発送時刻
+        received_at: 受取時刻
+        return_shipped_at: 返却発送時刻
+        return_received_at: 返却受取時刻
+        deleted_at: 削除時刻
+        state: 状態
+
+  inter_library_loan:
+    library_group_inter_library_loan: "%{library_group_name} の相互貸借"
+    borrowing_library: "借受館"
+    return_this_item: "この資料を返却する"
+

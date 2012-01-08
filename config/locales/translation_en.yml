@@ -1,0 +1,20 @@
+ja:
+  activerecord:
+    models:
+      inter_library_loan: Inter library loan
+
+    attributes:
+      inter_library_loan:
+        requested_at: Requested at
+        shipped_at: Shipped at
+        received_at: Received at
+        return_shipped_at: Return shipped at
+        return_received_at: Return received at
+        deleted_at: Deleted at
+        state: State
+
+  inter_library_loan:
+    library_group_inter_library_loan: "Inter library loans in %{library_group_name}"
+    borrowing_library: "Borrowing library"
+    return_this_item: "Return this item"
+
