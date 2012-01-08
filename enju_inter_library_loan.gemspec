@@ -17,8 +17,18 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "rails", "~> 3.1"
+  s.add_dependency "devise"
+  s.add_dependency "cancan"
+  s.add_dependency "will_paginate"
+  s.add_dependency "state_machine"
+  s.add_dependency "addressable"
+  s.add_dependency "friendly_id", "~> 4.0"
+  s.add_dependency "attribute_normalizer", "~> 1.0"
+  s.add_dependency "sunspot_rails", "~> 1.3"
+  s.add_dependency "sunspot_solr", "~> 1.3"
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "factory_girl_rails", "~> 1.4"
+  s.add_development_dependency "sunspot-rails-tester"
 end

@@ -2,7 +2,6 @@ class InterLibraryLoansController < ApplicationController
   load_and_authorize_resource
   before_filter :get_item
   before_filter :store_page, :only => :index
-  cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
 
   # GET /inter_library_loans
   # GET /inter_library_loans.json
