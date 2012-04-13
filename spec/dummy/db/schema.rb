@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(:version => 20111201163718) do
     t.datetime "return_received_at"
     t.datetime "deleted_at"
     t.string   "state"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
   end
 
   add_index "inter_library_loans", ["borrowing_library_id"], :name => "index_inter_library_loans_on_borrowing_library_id"
@@ -35,8 +35,8 @@ ActiveRecord::Schema.define(:version => 20111201163718) do
     t.string   "item_identifier"
     t.integer  "circulation_status_id",       :default => 5,     :null => false
     t.integer  "checkout_type_id",            :default => 1,     :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
     t.datetime "deleted_at"
     t.integer  "shelf_id",                    :default => 1,     :null => false
     t.integer  "basket_id"
@@ -79,8 +79,9 @@ ActiveRecord::Schema.define(:version => 20111201163718) do
     t.integer  "users_count",           :default => 0,   :null => false
     t.integer  "position"
     t.integer  "country_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "isil"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.datetime "deleted_at"
   end
 
@@ -99,8 +100,8 @@ ActiveRecord::Schema.define(:version => 20111201163718) do
     t.integer  "valid_period_for_new_user",   :default => 365,                      :null => false
     t.boolean  "post_to_union_catalog",       :default => false,                    :null => false
     t.integer  "country_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                                        :null => false
+    t.datetime "updated_at",                                                        :null => false
     t.text     "admin_networks"
     t.boolean  "allow_bookmark_external_url", :default => false,                    :null => false
     t.integer  "position"
@@ -117,8 +118,8 @@ ActiveRecord::Schema.define(:version => 20111201163718) do
     t.string   "manifestation_identifier"
     t.datetime "date_of_publication"
     t.datetime "copyright_date"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
     t.datetime "deleted_at"
     t.string   "access_address"
     t.integer  "language_id",              :default => 1,     :null => false
@@ -173,8 +174,8 @@ ActiveRecord::Schema.define(:version => 20111201163718) do
     t.text     "display_name"
     t.text     "note"
     t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "patrons", :force => true do |t|
@@ -190,8 +191,8 @@ ActiveRecord::Schema.define(:version => 20111201163718) do
     t.string   "full_name"
     t.text     "full_name_transcription"
     t.text     "full_name_alternative"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
     t.datetime "deleted_at"
     t.string   "zip_code_1"
     t.string   "zip_code_2"
@@ -238,8 +239,8 @@ ActiveRecord::Schema.define(:version => 20111201163718) do
     t.text     "display_name"
     t.text     "note"
     t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "shelves", :force => true do |t|
@@ -249,8 +250,8 @@ ActiveRecord::Schema.define(:version => 20111201163718) do
     t.integer  "library_id",   :default => 1, :null => false
     t.integer  "items_count",  :default => 0, :null => false
     t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
     t.datetime "deleted_at"
   end
 
@@ -259,8 +260,8 @@ ActiveRecord::Schema.define(:version => 20111201163718) do
   create_table "user_has_roles", :force => true do |t|
     t.integer  "user_id"
     t.integer  "role_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -269,8 +270,8 @@ ActiveRecord::Schema.define(:version => 20111201163718) do
     t.string   "username"
     t.text     "note"
     t.string   "locale"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                            :null => false
+    t.datetime "updated_at",                                            :null => false
     t.string   "email",                                 :default => "", :null => false
     t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
     t.string   "reset_password_token"

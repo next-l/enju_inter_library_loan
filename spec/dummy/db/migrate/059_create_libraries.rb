@@ -19,6 +19,7 @@ class CreateLibraries < ActiveRecord::Migration
       t.integer :users_count, :default => 0, :null => false
       t.integer :position
       t.integer :country_id
+      t.string :isil
 
       t.timestamps
       t.datetime :deleted_at
