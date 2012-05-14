@@ -95,7 +95,7 @@ class InterLibraryLoansController < ApplicationController
       if @inter_library_loan.update_attributes(params[:inter_library_loan])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.inter_library_loan'))
         format.html { redirect_to(@inter_library_loan) }
-        format.json { head :ok }
+        format.json { head :no_content }
       else
         @inter_library_loan.item = @item
         @libraries = LibraryGroup.first.real_libraries
@@ -115,10 +115,10 @@ class InterLibraryLoansController < ApplicationController
     respond_to do |format|
       if @item
         format.html { redirect_to item_inter_library_loans_url(@item) }
-        format.json { head :ok }
+        format.json { head :no_content }
       else
-        format.html { redirect_to(inter_library_loans_url) }
-        format.json { head :ok }
+        format.html { redirect_to inter_library_loans_url }
+        format.json { head :no_content }
       end
     end
   end
