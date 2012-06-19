@@ -42,6 +42,3 @@ module Dummy
     config.assets.version = '1.0'
   end
 end
-
-require 'master_model'
-require 'url_validator'
