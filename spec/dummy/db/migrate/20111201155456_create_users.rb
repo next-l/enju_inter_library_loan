@@ -6,6 +6,9 @@ class CreateUsers < ActiveRecord::Migration
       t.string :username
       t.text :note
       t.string :locale
+      t.string :user_number
+      t.integer :library_id
+      t.datetime :locked_at
 
       t.timestamps
     end
