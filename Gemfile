@@ -20,7 +20,6 @@ gem "enju_manifestation_viewer", github: "next-l/enju_manifestation_viewer", bra
 gem "enju_circulation", github: "next-l/enju_circulation", branch: "rails4"
 gem "enju_event", github: "next-l/enju_event", branch: "rails4"
 gem "sunspot_solr", github: "sunspot/sunspot"
-gem "acts_as_list", github: "swanandp/acts_as_list"
 gem "enju_message", github: "next-l/enju_message", branch: "rails4"
 
 # To use debugger
