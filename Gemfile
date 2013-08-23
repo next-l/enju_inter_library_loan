@@ -19,8 +19,9 @@ gem "enju_leaf", github: "nabeta/enju_leaf", branch: "rails4"
 gem "enju_manifestation_viewer", github: "next-l/enju_manifestation_viewer", branch: "rails4"
 gem "enju_circulation", github: "next-l/enju_circulation", branch: "rails4"
 gem "enju_event", github: "next-l/enju_event", branch: "rails4"
-gem "sunspot_solr", github: "sunspot/sunspot", branch: "rails4"
 gem "enju_message", github: "next-l/enju_message", branch: "rails4"
+gem "sunspot_rails", github: "sunspot/sunspot"
+gem "sunspot_solr", github: "sunspot/sunspot"
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
