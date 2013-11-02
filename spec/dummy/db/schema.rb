@@ -611,6 +611,7 @@ ActiveRecord::Schema.define(version: 20130509185724) do
     t.datetime "acquired_at"
     t.integer  "bookstore_id"
     t.integer  "budget_type_id"
+    t.integer  "manifestation_id"
     t.integer  "circulation_status_id", default: 5,     null: false
     t.integer  "checkout_type_id",      default: 1,     null: false
   end
