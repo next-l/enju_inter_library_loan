@@ -36,7 +36,7 @@ class InterLibraryLoansController < ApplicationController
   def new
     @inter_library_loan = InterLibraryLoan.new
     @libraries = LibraryGroup.first.real_libraries
-    @libraries.reject!{|library| library == current_user.library}
+    @libraries.to_a.reject!{|library| library == current_user.library}
 
     respond_to do |format|
       format.html # new.html.erb
@@ -48,7 +48,7 @@ class InterLibraryLoansController < ApplicationController
   def edit
     @inter_library_loan = InterLibraryLoan.find(params[:id])
     @libraries = LibraryGroup.first.real_libraries
-    @libraries.reject!{|library| library == current_user.library}
+    @libraries.to_a.reject!{|library| library == current_user.library}
   end
 
   # POST /inter_library_loans
