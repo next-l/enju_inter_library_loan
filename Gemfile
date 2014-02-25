@@ -19,7 +19,6 @@ gem "enju_manifestation_viewer", github: "next-l/enju_manifestation_viewer", bra
 gem "enju_circulation", github: "next-l/enju_circulation", branch: "rails4"
 gem "enju_event", github: "next-l/enju_event", branch: "rails4"
 gem "enju_message", github: "next-l/enju_message", branch: "rails4"
-gem "protected_attributes", github: "rails/protected_attributes"
 gem "state_machine", github: "seuros/state_machine"
 
 # To use debugger
