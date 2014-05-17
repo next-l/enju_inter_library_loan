@@ -33,16 +33,16 @@ describe InterLibraryLoansController do
         sign_in FactoryGirl.create(:user)
       end
 
-      it "assigns empty as @inter_library_loans" do
+      it "assigns nil as @inter_library_loans" do
         get :index
-        assigns(:inter_library_loans).should be_empty
+        assigns(:inter_library_loans).should be_nil
       end
     end
 
     describe "When not logged in" do
-      it "assigns empty as @inter_library_loans" do
+      it "assigns nil as @inter_library_loans" do
         get :index
-        assigns(:inter_library_loans).should be_empty
+        assigns(:inter_library_loans).should be_nil
       end
     end
   end

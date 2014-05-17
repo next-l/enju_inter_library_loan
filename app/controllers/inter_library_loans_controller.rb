@@ -1,11 +1,13 @@
 class InterLibraryLoansController < ApplicationController
-  load_and_authorize_resource
-  before_filter :get_item
-  before_filter :store_page, :only => :index
+  before_action :set_inter_library_loan, only: [:show, :edit, :update, :destroy]
+  before_action :get_item
+  before_action :store_page, :only => :index
+  after_action :verify_authorized
 
   # GET /inter_library_loans
   # GET /inter_library_loans.json
   def index
+    authorize InterLibraryLoan
     if @item
       @inter_library_loans = @item.inter_library_loans.page(params[:page])
     else
@@ -35,8 +37,9 @@ class InterLibraryLoansController < ApplicationController
   # GET /inter_library_loans/new.json
   def new
     @inter_library_loan = InterLibraryLoan.new
+    authorize @inter_library_loan
     @libraries = LibraryGroup.first.real_libraries
-    @libraries.reject!{|library| library == current_user.library}
+    @libraries.to_a.reject!{|library| library == current_user.library}
 
     respond_to do |format|
       format.html # new.html.erb
@@ -48,13 +51,14 @@ class InterLibraryLoansController < ApplicationController
   def edit
     @inter_library_loan = InterLibraryLoan.find(params[:id])
     @libraries = LibraryGroup.first.real_libraries
-    @libraries.reject!{|library| library == current_user.library}
+    @libraries.to_a.reject!{|library| library == current_user.library}
   end
 
   # POST /inter_library_loans
   # POST /inter_library_loans.json
   def create
-    @inter_library_loan = InterLibraryLoan.new(params[:inter_library_loan])
+    @inter_library_loan = InterLibraryLoan.new(inter_library_loan_params)
+    authorize @inter_library_loan
     item = Item.where(:item_identifier => params[:inter_library_loan][:item_identifier]).first
     @inter_library_loan.item = item
 
@@ -92,7 +96,7 @@ class InterLibraryLoansController < ApplicationController
     end
 
     respond_to do |format|
-      if @inter_library_loan.update_attributes(params[:inter_library_loan])
+      if @inter_library_loan.update_attributes(inter_library_loan_params)
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.inter_library_loan'))
         format.html { redirect_to(@inter_library_loan) }
         format.json { head :no_content }
@@ -121,5 +125,17 @@ class InterLibraryLoansController < ApplicationController
         format.json { head :no_content }
       end
     end
+  end
+
+  private
+  def set_inter_library_loan
+    @inter_library_loan = InterLibraryLoan.find(params[:id])
+    authorize @inter_library_loan
+  end
+
+  def inter_library_loan_params
+    params.require(:inter_library_loan).permit(
+      :item_id, :borrowing_library_id
+    )
   end
 end
