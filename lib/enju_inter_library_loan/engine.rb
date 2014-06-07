@@ -1,4 +1,4 @@
-require 'state_machine'
+require 'statesman'
 
 module EnjuInterLibraryLoan
   class Engine < ::Rails::Engine

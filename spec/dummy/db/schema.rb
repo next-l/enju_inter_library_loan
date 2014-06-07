@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130519065837) do
+ActiveRecord::Schema.define(version: 20140607100507) do
 
   create_table "accepts", force: true do |t|
     t.integer  "basket_id"
@@ -494,6 +494,18 @@ ActiveRecord::Schema.define(version: 20130519065837) do
   add_index "import_requests", ["isbn"], name: "index_import_requests_on_isbn"
   add_index "import_requests", ["manifestation_id"], name: "index_import_requests_on_manifestation_id"
   add_index "import_requests", ["user_id"], name: "index_import_requests_on_user_id"
+
+  create_table "inter_library_loan_transitions", force: true do |t|
+    t.string   "to_state"
+    t.text     "metadata",              default: "{}"
+    t.integer  "sort_key"
+    t.integer  "inter_library_loan_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "inter_library_loan_transitions", ["inter_library_loan_id"], name: "index_inter_library_loan_transitions_on_inter_library_loan_id"
+  add_index "inter_library_loan_transitions", ["sort_key", "inter_library_loan_id"], name: "index_inter_library_loan_transitions_on_sort_key_and_loan_id", unique: true
 
   create_table "inter_library_loans", force: true do |t|
     t.integer  "item_id",              null: false
