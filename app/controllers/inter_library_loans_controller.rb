@@ -1,7 +1,7 @@
 class InterLibraryLoansController < ApplicationController
   before_action :set_inter_library_loan, only: [:show, :edit, :update, :destroy]
   before_action :get_item
-  before_action :store_page, :only => :index
+  before_action :store_page, only: :index
   after_action :verify_authorized
 
   # GET /inter_library_loans
@@ -16,8 +16,8 @@ class InterLibraryLoansController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @inter_library_loans }
-      format.rss  { render :layout => false }
+      format.json { render json: @inter_library_loans }
+      format.rss  { render layout: false }
       format.atom
     end
   end
@@ -29,7 +29,7 @@ class InterLibraryLoansController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render :json => @inter_library_loan }
+      format.json { render json: @inter_library_loan }
     end
   end
 
@@ -43,7 +43,7 @@ class InterLibraryLoansController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render :json => @inter_library_loan }
+      format.json { render json: @inter_library_loan }
     end
   end
 
@@ -65,14 +65,14 @@ class InterLibraryLoansController < ApplicationController
     respond_to do |format|
       if @inter_library_loan.save
         @inter_library_loan.sm_request!
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.inter_library_loan'))
+        flash[:notice] = t('controller.successfully_created', model: t('activerecord.models.inter_library_loan'))
         format.html { redirect_to(@inter_library_loan) }
-        format.json { render :json => @inter_library_loan, :status => :created, :location => @inter_library_loan }
+        format.json { render json: @inter_library_loan, status: :created, location: @inter_library_loan }
       else
         @libraries = LibraryGroup.first.real_libraries
         @libraries.reject!{|library| library == current_user.library}
-        format.html { render :action => "new" }
-        format.json { render :json => @inter_library_loan.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.json { render json: @inter_library_loan.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -97,15 +97,15 @@ class InterLibraryLoansController < ApplicationController
 
     respond_to do |format|
       if @inter_library_loan.update_attributes(inter_library_loan_params)
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.inter_library_loan'))
+        flash[:notice] = t('controller.successfully_updated', model: t('activerecord.models.inter_library_loan'))
         format.html { redirect_to(@inter_library_loan) }
         format.json { head :no_content }
       else
         @inter_library_loan.item = @item
         @libraries = LibraryGroup.first.real_libraries
         @libraries.reject!{|library| library == current_user.library}
-        format.html { render :action => "edit" }
-        format.json { render :json => @inter_library_loan.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.json { render json: @inter_library_loan.errors, status: :unprocessable_entity }
       end
     end
   end

@@ -1,5 +1,5 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-  <h1 class="title"><%= t('page.new', :model => t('activerecord.models.inter_library_loan')) -%></h1>
+  <h1 class="title"><%= t('page.new', model: t('activerecord.models.inter_library_loan')) -%></h1>
 <div id="content_list">
 
 <%= form_for(@inter_library_loan) do |f| -%>
@@ -12,7 +12,7 @@
 
   <div class="field">
     <%= f.label :requested_at -%><br />
-    <%= f.text_field :requested_at, :class => 'date_field' -%>
+    <%= f.text_field :requested_at, class: 'date_field' -%>
   </div>
 
   <div class="field">
@@ -21,9 +21,9 @@
       <%= link_to @item.shelf.library.display_name.localize, @item.shelf.library -%>
       <%= link_to @item.item_identifier, @item -%>
       (<%= link_to @item.manifestation.original_title, @item.manifestation -%>)
-      <%= f.hidden_field :item_identifier, :value => @item.item_identifier -%>
+      <%= f.hidden_field :item_identifier, value: @item.item_identifier -%>
     <%- else -%>
-      <%= f.text_field :item_identifier, :class => 'resource_item_identifier' -%>
+      <%= f.text_field :item_identifier, class: 'resource_item_identifier' -%>
     <%- end -%>
   </div>
 

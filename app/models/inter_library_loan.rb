@@ -2,13 +2,13 @@ class InterLibraryLoan < ActiveRecord::Base
   scope :completed, -> {in_state(:return_received)}
   scope :processing, lambda {|item, borrowing_library| where('item_id = ? AND borrowing_library_id = ?', item.id, borrowing_library.id)}
 
-  belongs_to :item, :validate => true
+  belongs_to :item, validate: true
   #belongs_to :reserve
-  belongs_to :borrowing_library, :foreign_key => 'borrowing_library_id', :class_name => 'Library', :validate => true
+  belongs_to :borrowing_library, foreign_key: 'borrowing_library_id', class_name: 'Library', validate: true
 
   validates_presence_of :item_id, :borrowing_library_id
   validates_associated :item, :borrowing_library
-  validate :check_library, :on => :create
+  validate :check_library, on: :create
 
   def check_library
     if self.item and self.borrowing_library
@@ -27,28 +27,28 @@ class InterLibraryLoan < ActiveRecord::Base
 
   def do_request
     InterLibraryLoan.transaction do
-      self.item.update_attributes({:circulation_status => CirculationStatus.where(:name => 'Recalled').first})
+      self.item.update_attributes({:circulation_status => CirculationStatus.where(name: 'Recalled').first})
       self.update_attributes({:requested_at => Time.zone.now})
     end
   end
 
   def ship
     InterLibraryLoan.transaction do
-      self.item.update_attributes({:circulation_status => CirculationStatus.where(:name => 'In Transit Between Library Locations').first})
+      self.item.update_attributes({:circulation_status => CirculationStatus.where(name: 'In Transit Between Library Locations').first})
       self.update_attributes({:shipped_at => Time.zone.now})
     end
   end
 
   def receive
     InterLibraryLoan.transaction do
-      self.item.update_attributes({:circulation_status => CirculationStatus.where(:name => 'In Process').first})
+      self.item.update_attributes({:circulation_status => CirculationStatus.where(name: 'In Process').first})
       self.update_attributes({:received_at => Time.zone.now})
     end
   end
 
   def return_ship
     InterLibraryLoan.transaction do
-      self.item.update_attributes({:circulation_status => CirculationStatus.where(:name => 'In Transit Between Library Locations').first})
+      self.item.update_attributes({:circulation_status => CirculationStatus.where(name: 'In Transit Between Library Locations').first})
       self.update_attributes({:return_shipped_at => Time.zone.now})
     end
   end
@@ -56,7 +56,7 @@ class InterLibraryLoan < ActiveRecord::Base
   def return_receive
     InterLibraryLoan.transaction do
       # TODO: 'Waiting To Be Reshelved'
-      self.item.update_attributes({:circulation_status => CirculationStatus.where(:name => 'Available On Shelf').first})
+      self.item.update_attributes({:circulation_status => CirculationStatus.where(name: 'Available On Shelf').first})
       self.update_attributes({:return_received_at => Time.zone.now})
     end
   end
