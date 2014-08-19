@@ -430,6 +430,18 @@ ActiveRecord::Schema.define(:version => 20140813182425) do
   add_index "import_requests", ["manifestation_id"], :name => "index_import_requests_on_manifestation_id"
   add_index "import_requests", ["user_id"], :name => "index_import_requests_on_user_id"
 
+  create_table "inter_library_loan_transitions", :force => true do |t|
+    t.string   "to_state"
+    t.text     "metadata",              :default => "{}"
+    t.integer  "sort_key"
+    t.integer  "inter_library_loan_id"
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
+  end
+
+  add_index "inter_library_loan_transitions", ["inter_library_loan_id"], :name => "index_inter_library_loan_transitions_on_inter_library_loan_id"
+  add_index "inter_library_loan_transitions", ["sort_key", "inter_library_loan_id"], :name => "index_inter_library_loan_transitions_on_sort_key_and_loan_id", :unique => true
+
   create_table "inter_library_loans", :force => true do |t|
     t.integer  "item_id",              :null => false
     t.integer  "borrowing_library_id", :null => false
@@ -439,7 +451,6 @@ ActiveRecord::Schema.define(:version => 20140813182425) do
     t.datetime "return_shipped_at"
     t.datetime "return_received_at"
     t.datetime "deleted_at"
-    t.string   "state"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
   end
@@ -474,12 +485,12 @@ ActiveRecord::Schema.define(:version => 20140813182425) do
     t.datetime "acquired_at"
     t.integer  "bookstore_id"
     t.integer  "budget_type_id"
+    t.integer  "circulation_status_id",   :default => 5,     :null => false
+    t.integer  "checkout_type_id",        :default => 1,     :null => false
     t.string   "binding_item_identifier"
     t.string   "binding_call_number"
     t.datetime "binded_at"
     t.integer  "manifestation_id"
-    t.integer  "circulation_status_id",   :default => 5,     :null => false
-    t.integer  "checkout_type_id",        :default => 1,     :null => false
   end
 
   add_index "items", ["binding_item_identifier"], :name => "index_items_on_binding_item_identifier"
@@ -788,9 +799,9 @@ ActiveRecord::Schema.define(:version => 20140813182425) do
     t.integer  "required_role_id"
     t.datetime "created_at",                                  :null => false
     t.datetime "updated_at",                                  :null => false
-    t.datetime "expired_at"
     t.string   "checkout_icalendar_token"
     t.boolean  "save_checkout_history",    :default => false, :null => false
+    t.datetime "expired_at"
   end
 
   add_index "profiles", ["checkout_icalendar_token"], :name => "index_profiles_on_checkout_icalendar_token", :unique => true
@@ -1248,6 +1259,8 @@ ActiveRecord::Schema.define(:version => 20140813182425) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                                  :null => false
     t.datetime "updated_at",                                  :null => false
+    t.boolean  "save_checkout_history",    :default => false, :null => false
+    t.string   "checkout_icalendar_token"
     t.string   "username"
     t.datetime "deleted_at"
     t.datetime "expired_at"
@@ -1255,8 +1268,6 @@ ActiveRecord::Schema.define(:version => 20140813182425) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.datetime "confirmed_at"
-    t.boolean  "save_checkout_history",    :default => false, :null => false
-    t.string   "checkout_icalendar_token"
   end
 
   add_index "users", ["checkout_icalendar_token"], :name => "index_users_on_checkout_icalendar_token", :unique => true

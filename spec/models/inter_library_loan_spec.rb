@@ -19,8 +19,6 @@ end
 #  return_shipped_at    :datetime
 #  return_received_at   :datetime
 #  deleted_at           :datetime
-#  state                :string(255)
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #
-

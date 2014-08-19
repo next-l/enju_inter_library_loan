@@ -1,5 +1,5 @@
 require 'enju_seed'
-require 'state_machine'
+require 'statesman'
 
 module EnjuInterLibraryLoan
   class Engine < ::Rails::Engine
