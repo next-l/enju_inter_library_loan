@@ -2,7 +2,7 @@ class InterLibraryLoan < ActiveRecord::Base
   include Statesman::Adapters::ActiveRecordModel
   attr_accessible :item_id, :borrowing_library_id
   scope :completed, -> {in_state(:return_received)}
-  scope :processing, lambda {|item, borrowing_library| {:conditions => ['item_id = ? AND borrowing_library_id = ?', item.id, borrowing_library.id]}}
+  scope :processing, lambda {|item, borrowing_library| where('item_id = ? AND borrowing_library_id = ?', item.id, borrowing_library.id)}
 
   belongs_to :item, validate: true
   #belongs_to :reserve

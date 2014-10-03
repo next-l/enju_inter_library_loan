@@ -14,7 +14,7 @@ class InterLibraryLoansController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @inter_library_loans }
+      format.json { render json: @inter_library_loans }
       format.rss  { render :layout => false }
       format.atom
     end
@@ -27,7 +27,7 @@ class InterLibraryLoansController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render :json => @inter_library_loan }
+      format.json { render json: @inter_library_loan }
     end
   end
 
@@ -40,7 +40,7 @@ class InterLibraryLoansController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render :json => @inter_library_loan }
+      format.json { render json: @inter_library_loan }
     end
   end
 
@@ -63,12 +63,12 @@ class InterLibraryLoansController < ApplicationController
         @inter_library_loan.sm_request!
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.inter_library_loan'))
         format.html { redirect_to(@inter_library_loan) }
-        format.json { render :json => @inter_library_loan, :status => :created, :location => @inter_library_loan }
+        format.json { render json: @inter_library_loan, :status => :created, :location => @inter_library_loan }
       else
         @libraries = LibraryGroup.first.real_libraries
         @libraries.reject!{|library| library == current_user.library}
-        format.html { render :action => "new" }
-        format.json { render :json => @inter_library_loan.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.json { render json: @inter_library_loan.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -100,8 +100,8 @@ class InterLibraryLoansController < ApplicationController
         @inter_library_loan.item = @item
         @libraries = LibraryGroup.first.real_libraries
         @libraries.reject!{|library| library == current_user.library}
-        format.html { render :action => "edit" }
-        format.json { render :json => @inter_library_loan.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.json { render json: @inter_library_loan.errors, :status => :unprocessable_entity }
       end
     end
   end
