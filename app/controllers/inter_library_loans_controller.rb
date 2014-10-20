@@ -35,8 +35,7 @@ class InterLibraryLoansController < ApplicationController
   # GET /inter_library_loans/new.json
   def new
     @inter_library_loan = InterLibraryLoan.new
-    @libraries = LibraryGroup.first.real_libraries
-    @libraries.reject!{|library| library == current_user.library}
+    @libraries = LibraryGroup.first.real_libraries.where('id != ?', current_user.profile.try(:library_id))
 
     respond_to do |format|
       format.html # new.html.erb
@@ -47,8 +46,7 @@ class InterLibraryLoansController < ApplicationController
   # GET /inter_library_loans/1/edit
   def edit
     @inter_library_loan = InterLibraryLoan.find(params[:id])
-    @libraries = LibraryGroup.first.real_libraries
-    @libraries.reject!{|library| library == current_user.library}
+    @libraries = LibraryGroup.first.real_libraries.where('id != ?', current_user.profile.try(:library_id))
   end
 
   # POST /inter_library_loans
@@ -65,8 +63,7 @@ class InterLibraryLoansController < ApplicationController
         format.html { redirect_to(@inter_library_loan) }
         format.json { render json: @inter_library_loan, :status => :created, :location => @inter_library_loan }
       else
-        @libraries = LibraryGroup.first.real_libraries
-        @libraries.reject!{|library| library == current_user.library}
+        @libraries = LibraryGroup.first.real_libraries.where('id != ?', current_user.profile.try(:library_id))
         format.html { render action: "new" }
         format.json { render json: @inter_library_loan.errors, :status => :unprocessable_entity }
       end
@@ -98,8 +95,7 @@ class InterLibraryLoansController < ApplicationController
         format.json { head :no_content }
       else
         @inter_library_loan.item = @item
-        @libraries = LibraryGroup.first.real_libraries
-        @libraries.reject!{|library| library == current_user.library}
+        @libraries = LibraryGroup.first.real_libraries.where('id != ?', current_user.profile.try(:library_id))
         format.html { render action: "edit" }
         format.json { render json: @inter_library_loan.errors, :status => :unprocessable_entity }
       end
