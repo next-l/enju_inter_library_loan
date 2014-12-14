@@ -1,5 +1,5 @@
 class InterLibraryLoan < ActiveRecord::Base
-  include Statesman::Adapters::ActiveRecordModel
+  include Statesman::Adapters::ActiveRecordQueries
   attr_accessible :item_id, :borrowing_library_id
   scope :completed, -> {in_state(:return_received)}
   scope :processing, lambda {|item, borrowing_library| where('item_id = ? AND borrowing_library_id = ?', item.id, borrowing_library.id)}
@@ -73,6 +73,10 @@ class InterLibraryLoan < ActiveRecord::Base
   private
   def self.transition_class
     InterLibraryLoanTransition
+  end
+
+  def self.initial_state
+    OrderStateMachine.initial_state
   end
 end
 
