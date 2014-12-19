@@ -3,7 +3,7 @@ class InterLibraryLoanTransition < ActiveRecord::Base
 
   
   belongs_to :inter_library_loan, inverse_of: :inter_library_loan_transitions
-  attr_accessible :to_state, :sort_key, :metadata
+  #attr_accessible :to_state, :sort_key, :metadata
 end
 
 # == Schema Information

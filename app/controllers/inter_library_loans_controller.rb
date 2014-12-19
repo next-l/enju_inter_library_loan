@@ -118,4 +118,9 @@ class InterLibraryLoansController < ApplicationController
       end
     end
   end
+
+  private
+  def inter_library_loan_params
+    params.require(:inter_library_loan).permit(:item_id, :borrowing_library_id)
+  end
 end
