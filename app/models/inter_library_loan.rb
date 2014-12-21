@@ -1,5 +1,9 @@
 class InterLibraryLoan < ActiveRecord::Base
-  include Statesman::Adapters::ActiveRecordQueries
+  if Rails::VERSION::MAJOR >= 4
+    include Statesman::Adapters::ActiveRecordQueries
+  else
+    include Statesman::Adapters::ActiveRecordModel
+  end
   scope :completed, -> {in_state(:return_received)}
   scope :processing, lambda {|item, borrowing_library| where('item_id = ? AND borrowing_library_id = ?', item.id, borrowing_library.id)}
 
