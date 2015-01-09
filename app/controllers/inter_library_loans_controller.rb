@@ -1,13 +1,11 @@
 class InterLibraryLoansController < ApplicationController
-  before_action :set_inter_library_loan, only: [:show, :edit, :update, :destroy]
-  before_action :get_item
-  before_action :store_page, only: :index
-  after_action :verify_authorized
+  load_and_authorize_resource
+  before_filter :get_item
+  before_filter :store_page, :only => :index
 
   # GET /inter_library_loans
   # GET /inter_library_loans.json
   def index
-    authorize InterLibraryLoan
     if @item
       @inter_library_loans = @item.inter_library_loans.page(params[:page])
     else
@@ -17,7 +15,7 @@ class InterLibraryLoansController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @inter_library_loans }
-      format.rss  { render layout: false }
+      format.rss  { render :layout => false }
       format.atom
     end
   end
@@ -37,9 +35,7 @@ class InterLibraryLoansController < ApplicationController
   # GET /inter_library_loans/new.json
   def new
     @inter_library_loan = InterLibraryLoan.new
-    authorize @inter_library_loan
-    @libraries = LibraryGroup.first.real_libraries
-    @libraries.to_a.reject!{|library| library == current_user.library}
+    @libraries = Library.where('id != ?', current_user.profile.try(:library_id))
 
     respond_to do |format|
       format.html # new.html.erb
@@ -50,29 +46,26 @@ class InterLibraryLoansController < ApplicationController
   # GET /inter_library_loans/1/edit
   def edit
     @inter_library_loan = InterLibraryLoan.find(params[:id])
-    @libraries = LibraryGroup.first.real_libraries
-    @libraries.to_a.reject!{|library| library == current_user.library}
+    @libraries = Library.where('id != ?', current_user.profile.try(:library_id))
   end
 
   # POST /inter_library_loans
   # POST /inter_library_loans.json
   def create
-    @inter_library_loan = InterLibraryLoan.new(inter_library_loan_params)
-    authorize @inter_library_loan
+    @inter_library_loan = InterLibraryLoan.new(params[:inter_library_loan])
     item = Item.where(:item_identifier => params[:inter_library_loan][:item_identifier]).first
     @inter_library_loan.item = item
 
     respond_to do |format|
       if @inter_library_loan.save
         @inter_library_loan.sm_request!
-        flash[:notice] = t('controller.successfully_created', model: t('activerecord.models.inter_library_loan'))
+        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.inter_library_loan'))
         format.html { redirect_to(@inter_library_loan) }
-        format.json { render json: @inter_library_loan, status: :created, location: @inter_library_loan }
+        format.json { render json: @inter_library_loan, :status => :created, :location => @inter_library_loan }
       else
-        @libraries = LibraryGroup.first.real_libraries
-        @libraries.reject!{|library| library == current_user.library}
+        @libraries = Library.where('id != ?', current_user.profile.try(:library_id))
         format.html { render action: "new" }
-        format.json { render json: @inter_library_loan.errors, status: :unprocessable_entity }
+        format.json { render json: @inter_library_loan.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -96,16 +89,15 @@ class InterLibraryLoansController < ApplicationController
     end
 
     respond_to do |format|
-      if @inter_library_loan.update_attributes(inter_library_loan_params)
-        flash[:notice] = t('controller.successfully_updated', model: t('activerecord.models.inter_library_loan'))
+      if @inter_library_loan.update_attributes(params[:inter_library_loan])
+        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.inter_library_loan'))
         format.html { redirect_to(@inter_library_loan) }
         format.json { head :no_content }
       else
         @inter_library_loan.item = @item
-        @libraries = LibraryGroup.first.real_libraries
-        @libraries.reject!{|library| library == current_user.library}
+        @libraries = Library.where('id != ?', current_user.profile.try(:library_id))
         format.html { render action: "edit" }
-        format.json { render json: @inter_library_loan.errors, status: :unprocessable_entity }
+        format.json { render json: @inter_library_loan.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -128,14 +120,7 @@ class InterLibraryLoansController < ApplicationController
   end
 
   private
-  def set_inter_library_loan
-    @inter_library_loan = InterLibraryLoan.find(params[:id])
-    authorize @inter_library_loan
-  end
-
   def inter_library_loan_params
-    params.require(:inter_library_loan).permit(
-      :item_id, :borrowing_library_id
-    )
+    params.require(:inter_library_loan).permit(:item_id, :borrowing_library_id)
   end
 end

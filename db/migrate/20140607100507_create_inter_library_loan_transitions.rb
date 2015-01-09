@@ -2,7 +2,11 @@ class CreateInterLibraryLoanTransitions < ActiveRecord::Migration
   def change
     create_table :inter_library_loan_transitions do |t|
       t.string :to_state
-      t.text :metadata, default: "{}"
+      if ActiveRecord::Base.configurations[Rails.env]["adapter"].try(:match, /mysql/)
+        t.text :metadata
+      else
+        t.text :metadata, default: "{}"
+      end
       t.integer :sort_key
       t.integer :inter_library_loan_id
       t.timestamps

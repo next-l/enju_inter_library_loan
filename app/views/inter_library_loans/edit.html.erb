@@ -1,5 +1,5 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-  <h1 class="title"><%= t('page.editing', model: t('activerecord.models.inter_library_loan')) -%></h1>
+  <h1 class="title"><%= t('page.editing', :model => t('activerecord.models.inter_library_loan')) -%></h1>
 <div id="content_list">
 
 <%= form_for(@inter_library_loan) do |f| -%>
@@ -31,7 +31,7 @@
         <%= f.datetime_select :shipped_at -%>
       </div>
       <div class="actions">
-        <%= f.submit data: {confirm: t('page.are_you_sure')} -%>
+        <%= f.submit :data => {:confirm => t('page.are_you_sure')} -%>
       </div>
     <%- end -%>
   <%- when 'shipped' -%>
@@ -51,7 +51,7 @@
         <%= f.datetime_select :received_at -%>
       </div>
       <div class="actions">
-        <%= f.submit data: {confirm: t('page.are_you_sure')} -%>
+        <%= f.submit :data => {:confirm => t('page.are_you_sure')} -%>
       </div>
     <%- end -%>
   <%- when 'received' -%>
@@ -76,7 +76,7 @@
         <%= f.datetime_select :return_shipped_at -%>
       </div>
       <div class="actions">
-        <%= f.submit data: {confirm: t('page.are_you_sure')} -%>
+        <%= f.submit :data => {:confirm => t('page.are_you_sure')} -%>
       </div>
     <%- end -%>
   <%- when 'return_shipped' -%>
@@ -106,7 +106,7 @@
         <%= f.datetime_select :return_received_at -%>
       </div>
       <div class="actions">
-        <%= f.submit data: {confirm: t('page.are_you_sure')} -%>
+        <%= f.submit :data => {:confirm => t('page.are_you_sure')} -%>
       </div>
     <%- end -%>
   <%- when 'return_received' -%>

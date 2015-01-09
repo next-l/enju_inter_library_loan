@@ -14,19 +14,19 @@ class InterLibraryLoanStateMachine
   transition from: :received, to: :return_shipped
   transition from: :return_shipped, to: :return_received
 
-  before_transiton(to: :shipped) do |inter_library_loan|
+  before_transition(to: :shipped) do |inter_library_loan|
     inter_library_loan.ship
   end
 
-  before_transiton(to: :received) do |inter_library_loan|
+  before_transition(to: :received) do |inter_library_loan|
     inter_library_loan.do_receive
   end
 
-  before_transiton(to: :return_shipped) do |inter_library_loan|
+  before_transition(to: :return_shipped) do |inter_library_loan|
     inter_library_loan.do_return_ship
   end
 
-  before_transiton(to: :return_received) do |inter_library_loan|
+  before_transition(to: :return_received) do |inter_library_loan|
     inter_library_loan.do_return_receive
   end
 end

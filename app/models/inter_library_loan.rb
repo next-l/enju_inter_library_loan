@@ -1,4 +1,5 @@
 class InterLibraryLoan < ActiveRecord::Base
+  include Statesman::Adapters::ActiveRecordQueries
   scope :completed, -> {in_state(:return_received)}
   scope :processing, lambda {|item, borrowing_library| where('item_id = ? AND borrowing_library_id = ?', item.id, borrowing_library.id)}
 
@@ -10,55 +11,71 @@ class InterLibraryLoan < ActiveRecord::Base
   validates_associated :item, :borrowing_library
   validate :check_library, on: :create
 
+  attr_accessor :item_identifier
+
+  paginates_per 10
+
+  def state_machine
+    InterLibraryLoanStateMachine.new(self, transition_class: InterLibraryLoanTransition)
+  end
+
+  has_many :inter_library_loan_transitions
+
+  delegate :can_transition_to?, :transition_to!, :transition_to, :current_state,
+    to: :state_machine
+
   def check_library
-    if self.item and self.borrowing_library
-      unless InterLibraryLoan.processing(self.item, self.borrowing_library).blank?
+    if item and borrowing_library
+      unless InterLibraryLoan.processing(item, borrowing_library).blank?
         errors.add(:borrowing_library)
         errors.add(:item_identifier)
       end
     end
   end
 
-  def self.per_page
-    10
-  end
-
-  attr_accessor :item_identifier
-
   def do_request
     InterLibraryLoan.transaction do
-      self.item.update_attributes({:circulation_status => CirculationStatus.where(name: 'Recalled').first})
-      self.update_attributes({:requested_at => Time.zone.now})
+      item.update_attributes({:circulation_status => CirculationStatus.where(:name => 'Recalled').first})
+      update_attributes({:requested_at => Time.zone.now})
     end
   end
 
   def ship
     InterLibraryLoan.transaction do
-      self.item.update_attributes({:circulation_status => CirculationStatus.where(name: 'In Transit Between Library Locations').first})
-      self.update_attributes({:shipped_at => Time.zone.now})
+      item.update_attributes({:circulation_status => CirculationStatus.where(:name => 'In Transit Between Library Locations').first})
+      update_attributes({:shipped_at => Time.zone.now})
     end
   end
 
   def receive
     InterLibraryLoan.transaction do
-      self.item.update_attributes({:circulation_status => CirculationStatus.where(name: 'In Process').first})
-      self.update_attributes({:received_at => Time.zone.now})
+      item.update_attributes({:circulation_status => CirculationStatus.where(:name => 'In Process').first})
+      update_attributes({:received_at => Time.zone.now})
     end
   end
 
   def return_ship
     InterLibraryLoan.transaction do
-      self.item.update_attributes({:circulation_status => CirculationStatus.where(name: 'In Transit Between Library Locations').first})
-      self.update_attributes({:return_shipped_at => Time.zone.now})
+      item.update_attributes({:circulation_status => CirculationStatus.where(:name => 'In Transit Between Library Locations').first})
+      update_attributes({:return_shipped_at => Time.zone.now})
     end
   end
 
   def return_receive
     InterLibraryLoan.transaction do
       # TODO: 'Waiting To Be Reshelved'
-      self.item.update_attributes({:circulation_status => CirculationStatus.where(name: 'Available On Shelf').first})
-      self.update_attributes({:return_received_at => Time.zone.now})
+      item.update_attributes({:circulation_status => CirculationStatus.where(:name => 'Available On Shelf').first})
+      update_attributes({:return_received_at => Time.zone.now})
     end
+  end
+
+  private
+  def self.transition_class
+    InterLibraryLoanTransition
+  end
+
+  def self.initial_state
+    OrderStateMachine.initial_state
   end
 end
 
@@ -75,8 +92,6 @@ end
 #  return_shipped_at    :datetime
 #  return_received_at   :datetime
 #  deleted_at           :datetime
-#  state                :string(255)
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #
-
