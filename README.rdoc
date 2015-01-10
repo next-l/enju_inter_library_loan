@@ -1,5 +1,5 @@
 = EnjuInterLibraryLoan
-{<img src="https://travis-ci.org/next-l/enju_inter_library_loan.png?branch=master" alt="Build Status" />}[http://travis-ci.org/next-l/enju_inter_library_loan]
+{<img src="https://travis-ci.org/next-l/enju_inter_library_loan.svg?branch=master" alt="Build Status" />}[http://travis-ci.org/next-l/enju_inter_library_loan]
 {<img src="https://img.shields.io/coveralls/next-l/enju_inter_library_loan.svg" alt="Coverage Status" />}[https://coveralls.io/r/next-l/enju_nii?branch=master]
 {<img src="https://hakiri.io/github/next-l/enju_inter_library_loan/master.svg" alt="security" />}[https://hakiri.io/github/next-l/enju_inter_library_loan/master]
 
