@@ -1,7 +1,8 @@
 class InterLibraryLoansController < ApplicationController
-  load_and_authorize_resource
-  before_filter :get_item
-  before_filter :store_page, :only => :index
+  before_action :set_inter_library_loan, only: [:show, :edit, :update, :destroy]
+  before_action :check_policy, only: [:index, :new, :create]
+  before_action :get_item
+  before_action :store_page, :only => :index
 
   # GET /inter_library_loans
   # GET /inter_library_loans.json
@@ -120,6 +121,15 @@ class InterLibraryLoansController < ApplicationController
   end
 
   private
+  def set_inter_library_loan
+    @inter_library_loan = InterLibraryLoan.find(params[:id])
+    authorize @inter_library_loan
+  end
+
+  def check_policy
+    authorize InterLibraryLoan
+  end
+
   def inter_library_loan_params
     params.require(:inter_library_loan).permit(:item_id, :borrowing_library_id)
   end
