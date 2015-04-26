@@ -2,7 +2,7 @@ language: ruby
 cache: bundler
 rvm:
   - 2.1.5
-  - 2.2.0
+  - 2.2.2
 before_script:
   - mysql -e 'create database enju_test'
   - psql -c 'create database enju_test;' -U postgres
@@ -17,4 +17,3 @@ notifications:
   slack:
     secure: H47CWe0kjyXGsaSOtjt22kVvJ8ixbMrvF9imV2nxCUzqK7oens8xNE6VqB3JQ2Rb5n6NMZHpR2cCcG8jcSRm9ZmGgOHLaUdxRxVqTJ1dgD64j1/wNlpNGUp3eAo8XurarmF+06DBOLgiNG65mNmcQ2HFxDC0Vbhxwt4F1IvTlLU=
 sudo: false
-cache: bundler
