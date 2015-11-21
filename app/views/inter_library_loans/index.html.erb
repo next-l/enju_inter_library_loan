@@ -26,13 +26,17 @@
       <%= l(inter_library_loan.shipped_at) if inter_library_loan.shipped_at -%><br />
       <%= l(inter_library_loan.received_at) if inter_library_loan.received_at -%>
     </td>
-    <%- if can? :destroy, inter_library_loan -%>
-      <td>
+    <td>
+      <%- if policy(inter_library_loan).show? -%>
         <%= link_to t('page.show'), inter_library_loan -%>
+      <%- end -%>
+      <%- if policy(inter_library_loan).update? -%>
         <%= link_to t('page.edit'), edit_inter_library_loan_path(inter_library_loan) -%>
+      <%- end -%>
+      <%- if policy(inter_library_loan).destroy? -%>
         <%= link_to t('page.destroy'), inter_library_loan, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
-      </td>
-    <%- end -%>
+      <%- end -%>
+    </td>
   </tr>
 <%- end -%>
 </table>
@@ -43,7 +47,7 @@
 
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <ul>
-    <%- if can? :create, InterLibraryLoan -%>
+    <%- if policy(InterLibraryLoan).create? -%>
       <li><%= link_to t('page.new', :model => t('activerecord.models.inter_library_loan')), new_inter_library_loan_path -%></li>
     <%- end -%>
   </ul>
