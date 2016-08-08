@@ -1,4 +1,4 @@
-require 'enju_leaf'
+require 'enju_seed'
 
 module EnjuInterLibraryLoan
   class Engine < ::Rails::Engine
