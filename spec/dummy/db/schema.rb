@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151213072705) do
+ActiveRecord::Schema.define(version: 20160703190932) do
 
   create_table "accepts", force: :cascade do |t|
     t.integer  "basket_id"
@@ -466,6 +466,7 @@ ActiveRecord::Schema.define(version: 20151213072705) do
     t.integer  "inter_library_loan_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "most_recent"
   end
 
   add_index "inter_library_loan_transitions", ["inter_library_loan_id"], name: "index_inter_library_loan_transitions_on_inter_library_loan_id"
