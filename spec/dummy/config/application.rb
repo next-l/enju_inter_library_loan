@@ -6,6 +6,8 @@ Bundler.require(*Rails.groups)
 require 'enju_inter_library_loan'
 require 'enju_leaf'
 require 'enju_circulation'
+require 'globalize'
+require 'globalize-accessors'
 
 module Dummy
   class Application < Rails::Application

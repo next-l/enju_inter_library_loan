@@ -17,4 +17,5 @@ end
 #  inter_library_loan_id :integer
 #  created_at            :datetime
 #  updated_at            :datetime
+#  most_recent           :boolean
 #
