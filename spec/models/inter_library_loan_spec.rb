@@ -1,9 +1,8 @@
 # -*- encoding: utf-8 -*-
-require 'spec_helper'
+require 'rails_helper'
 
 describe InterLibraryLoan do
-  #pending "add some examples to (or delete) #{__FILE__}"
-
+  # pending "add some examples to (or delete) #{__FILE__}"
 end
 
 # == Schema Information
@@ -19,6 +18,6 @@ end
 #  return_shipped_at    :datetime
 #  return_received_at   :datetime
 #  deleted_at           :datetime
-#  created_at           :datetime         not null
-#  updated_at           :datetime         not null
+#  created_at           :datetime
+#  updated_at           :datetime
 #
