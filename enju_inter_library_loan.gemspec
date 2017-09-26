@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 
   #s.add_dependency "enju_biblio", "~> 0.2.0"
   #s.add_dependency "enju_library", "~> 0.2.0"
-  s.add_dependency "statesman", "~> 2.0"
+  s.add_dependency "statesman"
 
   s.add_development_dependency "pg"
   s.add_development_dependency "rspec-rails", "~> 3.5"
