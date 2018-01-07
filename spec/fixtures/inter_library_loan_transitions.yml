@@ -3,36 +3,43 @@ inter_library_loan_transition_00001:
   to_state: requested
   inter_library_loan_id: 1
   sort_key: 0
+  most_recent: true
 inter_library_loan_transition_00002:
   id: 2
   to_state: shipped
   inter_library_loan_id: 2
   sort_key: 0
+  most_recent: true
 inter_library_loan_transition_00003:
   id: 3
   to_state: received
   inter_library_loan_id: 3
   sort_key: 0
+  most_recent: true
 inter_library_loan_transition_00004:
   id: 4
   to_state: return_shipped
   inter_library_loan_id: 4
   sort_key: 0
+  most_recent: true
 inter_library_loan_transition_00005:
   id: 5
   to_state: return_received
   inter_library_loan_id: 5
   sort_key: 0
+  most_recent: true
 inter_library_loan_transition_00006:
   id: 6
   to_state: requested
   inter_library_loan_id: 6
   sort_key: 0
+  most_recent: true
 inter_library_loan_transition_00007:
   id: 7
   to_state: shipped
   inter_library_loan_id: 7
   sort_key: 0
+  most_recent: true
 
 # == Schema Information
 #
