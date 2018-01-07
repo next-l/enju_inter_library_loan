@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180107162048) do
+ActiveRecord::Schema.define(version: 20180107164929) do
 
   create_table "accepts", force: :cascade do |t|
     t.integer  "basket_id"
@@ -31,9 +31,10 @@ ActiveRecord::Schema.define(version: 20180107162048) do
     t.integer  "agent_import_file_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "most_recent"
+    t.boolean  "most_recent",                         null: false
   end
 
+  add_index "agent_import_file_transitions", ["agent_import_file_id", "most_recent"], name: "index_agent_import_file_transitions_parent_most_recent", unique: true
   add_index "agent_import_file_transitions", ["agent_import_file_id"], name: "index_agent_import_file_transitions_on_agent_import_file_id"
   add_index "agent_import_file_transitions", ["sort_key", "agent_import_file_id"], name: "index_agent_import_file_transitions_on_sort_key_and_file_id", unique: true
 
@@ -159,12 +160,14 @@ ActiveRecord::Schema.define(version: 20180107162048) do
     t.string   "birth_date"
     t.string   "death_date"
     t.string   "agent_identifier"
+    t.integer  "profile_id"
   end
 
   add_index "agents", ["agent_identifier"], name: "index_agents_on_agent_identifier"
   add_index "agents", ["country_id"], name: "index_agents_on_country_id"
   add_index "agents", ["full_name"], name: "index_agents_on_full_name"
   add_index "agents", ["language_id"], name: "index_agents_on_language_id"
+  add_index "agents", ["profile_id"], name: "index_agents_on_profile_id"
   add_index "agents", ["required_role_id"], name: "index_agents_on_required_role_id"
 
   create_table "baskets", force: :cascade do |t|
@@ -464,9 +467,10 @@ ActiveRecord::Schema.define(version: 20180107162048) do
     t.integer  "import_request_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "most_recent"
+    t.boolean  "most_recent",                      null: false
   end
 
+  add_index "import_request_transitions", ["import_request_id", "most_recent"], name: "index_import_request_transitions_parent_most_recent", unique: true
   add_index "import_request_transitions", ["import_request_id"], name: "index_import_request_transitions_on_import_request_id"
   add_index "import_request_transitions", ["sort_key", "import_request_id"], name: "index_import_request_transitions_on_sort_key_and_request_id", unique: true
 
@@ -489,9 +493,10 @@ ActiveRecord::Schema.define(version: 20180107162048) do
     t.integer  "inter_library_loan_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "most_recent"
+    t.boolean  "most_recent",                          null: false
   end
 
+  add_index "inter_library_loan_transitions", ["inter_library_loan_id", "most_recent"], name: "index_inter_library_loan_transitions_parent_most_recent", unique: true
   add_index "inter_library_loan_transitions", ["inter_library_loan_id"], name: "index_inter_library_loan_transitions_on_inter_library_loan_id"
   add_index "inter_library_loan_transitions", ["sort_key", "inter_library_loan_id"], name: "index_inter_library_loan_transitions_on_sort_key_and_loan_id", unique: true
 
@@ -543,7 +548,7 @@ ActiveRecord::Schema.define(version: 20180107162048) do
     t.string   "binding_item_identifier"
     t.string   "binding_call_number"
     t.datetime "binded_at"
-    t.integer  "manifestation_id"
+    t.integer  "manifestation_id",                        null: false
   end
 
   add_index "items", ["binding_item_identifier"], name: "index_items_on_binding_item_identifier"
@@ -633,7 +638,7 @@ ActiveRecord::Schema.define(version: 20180107162048) do
     t.text     "display_name"
     t.string   "short_name",                                                       null: false
     t.text     "my_networks"
-    t.text     "login_banner"
+    t.text     "old_login_banner"
     t.text     "note"
     t.integer  "country_id"
     t.integer  "position"
@@ -647,6 +652,12 @@ ActiveRecord::Schema.define(version: 20180107162048) do
     t.boolean  "family_name_first",             default: true
     t.integer  "pub_year_facet_range_interval", default: 10
     t.integer  "user_id"
+    t.boolean  "csv_charset_conversion",        default: false,                    null: false
+    t.string   "header_logo_file_name"
+    t.string   "header_logo_content_type"
+    t.integer  "header_logo_file_size"
+    t.datetime "header_logo_updated_at"
+    t.text     "header_logo_meta"
   end
 
   add_index "library_groups", ["short_name"], name: "index_library_groups_on_short_name"
@@ -1064,9 +1075,10 @@ ActiveRecord::Schema.define(version: 20180107162048) do
     t.integer  "resource_export_file_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "most_recent"
+    t.boolean  "most_recent",                            null: false
   end
 
+  add_index "resource_export_file_transitions", ["resource_export_file_id", "most_recent"], name: "index_resource_export_file_transitions_parent_most_recent", unique: true
   add_index "resource_export_file_transitions", ["resource_export_file_id"], name: "index_resource_export_file_transitions_on_file_id"
   add_index "resource_export_file_transitions", ["sort_key", "resource_export_file_id"], name: "index_resource_export_file_transitions_on_sort_key_and_file_id", unique: true
 
@@ -1088,9 +1100,10 @@ ActiveRecord::Schema.define(version: 20180107162048) do
     t.integer  "resource_import_file_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "most_recent"
+    t.boolean  "most_recent",                            null: false
   end
 
+  add_index "resource_import_file_transitions", ["resource_import_file_id", "most_recent"], name: "index_resource_import_file_transitions_parent_most_recent", unique: true
   add_index "resource_import_file_transitions", ["resource_import_file_id"], name: "index_resource_import_file_transitions_on_file_id"
   add_index "resource_import_file_transitions", ["sort_key", "resource_import_file_id"], name: "index_resource_import_file_transitions_on_sort_key_and_file_id", unique: true
 
