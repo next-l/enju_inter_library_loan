@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160814165332) do
+ActiveRecord::Schema.define(version: 20180107162048) do
 
   create_table "accepts", force: :cascade do |t|
     t.integer  "basket_id"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20160814165332) do
     t.integer  "agent_import_file_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "most_recent"
   end
 
   add_index "agent_import_file_transitions", ["agent_import_file_id"], name: "index_agent_import_file_transitions_on_agent_import_file_id"
@@ -212,25 +213,32 @@ ActiveRecord::Schema.define(version: 20160814165332) do
   add_index "carrier_type_has_checkout_types", ["checkout_type_id"], name: "index_carrier_type_has_checkout_types_on_checkout_type_id"
 
   create_table "carrier_types", force: :cascade do |t|
-    t.string   "name",         null: false
+    t.string   "name",                    null: false
     t.text     "display_name"
     t.text     "note"
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
+    t.datetime "attachment_updated_at"
   end
 
   create_table "checked_items", force: :cascade do |t|
     t.integer  "item_id",      null: false
     t.integer  "basket_id",    null: false
+    t.integer  "librarian_id"
     t.datetime "due_date",     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "librarian_id"
+    t.integer  "user_id"
   end
 
   add_index "checked_items", ["basket_id"], name: "index_checked_items_on_basket_id"
   add_index "checked_items", ["item_id"], name: "index_checked_items_on_item_id"
+  add_index "checked_items", ["librarian_id"], name: "index_checked_items_on_librarian_id"
+  add_index "checked_items", ["user_id"], name: "index_checked_items_on_user_id"
 
   create_table "checkins", force: :cascade do |t|
     t.integer  "item_id",                  null: false
@@ -290,6 +298,7 @@ ActiveRecord::Schema.define(version: 20160814165332) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "shelf_id"
+    t.integer  "library_id"
   end
 
   add_index "checkouts", ["basket_id"], name: "index_checkouts_on_basket_id"
@@ -297,6 +306,7 @@ ActiveRecord::Schema.define(version: 20160814165332) do
   add_index "checkouts", ["item_id", "basket_id"], name: "index_checkouts_on_item_id_and_basket_id", unique: true
   add_index "checkouts", ["item_id"], name: "index_checkouts_on_item_id"
   add_index "checkouts", ["librarian_id"], name: "index_checkouts_on_librarian_id"
+  add_index "checkouts", ["library_id"], name: "index_checkouts_on_library_id"
   add_index "checkouts", ["shelf_id"], name: "index_checkouts_on_shelf_id"
   add_index "checkouts", ["user_id"], name: "index_checkouts_on_user_id"
 
@@ -364,6 +374,18 @@ ActiveRecord::Schema.define(version: 20160814165332) do
 
   add_index "creates", ["agent_id"], name: "index_creates_on_agent_id"
   add_index "creates", ["work_id"], name: "index_creates_on_work_id"
+
+  create_table "demands", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "item_id"
+    t.integer  "message_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "demands", ["item_id"], name: "index_demands_on_item_id"
+  add_index "demands", ["message_id"], name: "index_demands_on_message_id"
+  add_index "demands", ["user_id"], name: "index_demands_on_user_id"
 
   create_table "donates", force: :cascade do |t|
     t.integer  "agent_id",   null: false
@@ -442,6 +464,7 @@ ActiveRecord::Schema.define(version: 20160814165332) do
     t.integer  "import_request_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "most_recent"
   end
 
   add_index "import_request_transitions", ["import_request_id"], name: "index_import_request_transitions_on_import_request_id"
@@ -645,8 +668,10 @@ ActiveRecord::Schema.define(version: 20160814165332) do
     t.integer  "manifestation_checkout_stat_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "most_recent",                                   null: false
   end
 
+  add_index "manifestation_checkout_stat_transitions", ["manifestation_checkout_stat_id", "most_recent"], name: "index_manifestation_checkout_stat_transitions_parent_most_rece", unique: true
   add_index "manifestation_checkout_stat_transitions", ["manifestation_checkout_stat_id"], name: "index_manifestation_checkout_stat_transitions_on_stat_id"
   add_index "manifestation_checkout_stat_transitions", ["sort_key", "manifestation_checkout_stat_id"], name: "index_manifestation_checkout_stat_transitions_on_transition", unique: true
 
@@ -691,8 +716,10 @@ ActiveRecord::Schema.define(version: 20160814165332) do
     t.integer  "manifestation_reserve_stat_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "most_recent",                                  null: false
   end
 
+  add_index "manifestation_reserve_stat_transitions", ["manifestation_reserve_stat_id", "most_recent"], name: "index_manifestation_reserve_stat_transitions_parent_most_recen", unique: true
   add_index "manifestation_reserve_stat_transitions", ["manifestation_reserve_stat_id"], name: "index_manifestation_reserve_stat_transitions_on_stat_id"
   add_index "manifestation_reserve_stat_transitions", ["sort_key", "manifestation_reserve_stat_id"], name: "index_manifestation_reserve_stat_transitions_on_transition", unique: true
 
@@ -881,6 +908,8 @@ ActiveRecord::Schema.define(version: 20160814165332) do
     t.datetime "picture_updated_at"
     t.text     "picture_meta"
     t.string   "picture_fingerprint"
+    t.integer  "picture_width"
+    t.integer  "picture_height"
   end
 
   add_index "picture_files", ["picture_attachable_id", "picture_attachable_type"], name: "index_picture_files_on_picture_attachable_id_and_type"
@@ -992,13 +1021,15 @@ ActiveRecord::Schema.define(version: 20160814165332) do
 
   create_table "reserve_transitions", force: :cascade do |t|
     t.string   "to_state"
-    t.text     "metadata",   default: "{}"
+    t.text     "metadata",    default: "{}"
     t.integer  "sort_key"
     t.integer  "reserve_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "most_recent",                null: false
   end
 
+  add_index "reserve_transitions", ["reserve_id", "most_recent"], name: "index_reserve_transitions_parent_most_recent", unique: true
   add_index "reserve_transitions", ["reserve_id"], name: "index_reserve_transitions_on_reserve_id"
   add_index "reserve_transitions", ["sort_key", "reserve_id"], name: "index_reserve_transitions_on_sort_key_and_reserve_id", unique: true
 
@@ -1015,6 +1046,7 @@ ActiveRecord::Schema.define(version: 20160814165332) do
     t.datetime "deleted_at"
     t.boolean  "expiration_notice_to_patron",  default: false
     t.boolean  "expiration_notice_to_library", default: false
+    t.integer  "pickup_location_id"
     t.datetime "retained_at"
     t.datetime "postponed_at"
     t.integer  "lock_version",                 default: 0,     null: false
@@ -1022,7 +1054,7 @@ ActiveRecord::Schema.define(version: 20160814165332) do
 
   add_index "reserves", ["item_id"], name: "index_reserves_on_item_id"
   add_index "reserves", ["manifestation_id"], name: "index_reserves_on_manifestation_id"
-  add_index "reserves", ["request_status_type_id"], name: "index_reserves_on_request_status_type_id"
+  add_index "reserves", ["pickup_location_id"], name: "index_reserves_on_pickup_location_id"
   add_index "reserves", ["user_id"], name: "index_reserves_on_user_id"
 
   create_table "resource_export_file_transitions", force: :cascade do |t|
@@ -1032,6 +1064,7 @@ ActiveRecord::Schema.define(version: 20160814165332) do
     t.integer  "resource_export_file_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "most_recent"
   end
 
   add_index "resource_export_file_transitions", ["resource_export_file_id"], name: "index_resource_export_file_transitions_on_file_id"
@@ -1055,6 +1088,7 @@ ActiveRecord::Schema.define(version: 20160814165332) do
     t.integer  "resource_import_file_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "most_recent"
   end
 
   add_index "resource_import_file_transitions", ["resource_import_file_id"], name: "index_resource_import_file_transitions_on_file_id"
@@ -1219,9 +1253,11 @@ ActiveRecord::Schema.define(version: 20160814165332) do
     t.integer  "user_checkout_stat_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "most_recent",                          null: false
   end
 
   add_index "user_checkout_stat_transitions", ["sort_key", "user_checkout_stat_id"], name: "index_user_checkout_stat_transitions_on_sort_key_and_stat_id", unique: true
+  add_index "user_checkout_stat_transitions", ["user_checkout_stat_id", "most_recent"], name: "index_user_checkout_stat_transitions_parent_most_recent", unique: true
   add_index "user_checkout_stat_transitions", ["user_checkout_stat_id"], name: "index_user_checkout_stat_transitions_on_user_checkout_stat_id"
 
   create_table "user_checkout_stats", force: :cascade do |t|
@@ -1353,9 +1389,11 @@ ActiveRecord::Schema.define(version: 20160814165332) do
     t.integer  "user_reserve_stat_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "most_recent",                         null: false
   end
 
   add_index "user_reserve_stat_transitions", ["sort_key", "user_reserve_stat_id"], name: "index_user_reserve_stat_transitions_on_sort_key_and_stat_id", unique: true
+  add_index "user_reserve_stat_transitions", ["user_reserve_stat_id", "most_recent"], name: "index_user_reserve_stat_transitions_parent_most_recent", unique: true
   add_index "user_reserve_stat_transitions", ["user_reserve_stat_id"], name: "index_user_reserve_stat_transitions_on_user_reserve_stat_id"
 
   create_table "user_reserve_stats", force: :cascade do |t|
