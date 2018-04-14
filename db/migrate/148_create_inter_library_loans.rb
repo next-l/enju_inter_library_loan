@@ -1,8 +1,8 @@
-class CreateInterLibraryLoans < ActiveRecord::Migration
-  def self.up
+class CreateInterLibraryLoans < ActiveRecord::Migration[5.1]
+  def change
     create_table :inter_library_loans do |t|
-      t.integer :item_id, :null => false
-      t.integer :borrowing_library_id, :null => false
+      t.references :item, type: :uuid, null: false
+      t.references :borrowing_library, foreign_key: {to_table: :libraries}, type: :uuid, null: false
       t.timestamp :requested_at
       t.timestamp :shipped_at
       t.timestamp :received_at
@@ -12,11 +12,5 @@ class CreateInterLibraryLoans < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :inter_library_loans, :item_id
-    add_index :inter_library_loans, :borrowing_library_id
-  end
-
-  def self.down
-    drop_table :inter_library_loans
   end
 end

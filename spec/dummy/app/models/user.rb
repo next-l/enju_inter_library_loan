@@ -10,3 +10,4 @@ class User < ActiveRecord::Base
   include EnjuMessage::EnjuUser
   include EnjuCirculation::EnjuUser
 end
+Item.include(EnjuLibrary::EnjuItem)
