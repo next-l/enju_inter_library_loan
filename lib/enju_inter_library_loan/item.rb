@@ -7,7 +7,7 @@ module EnjuInterLibraryLoan
     module ClassMethods
       def enju_inter_library_loan_item_model
         include InstanceMethods
-        has_many :inter_library_loans, :dependent => :destroy
+        has_many :inter_library_loans, dependent: :destroy
       end
     end
 

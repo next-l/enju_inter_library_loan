@@ -1,8 +1,8 @@
 class CreateInterLibraryLoans < ActiveRecord::Migration
   def self.up
     create_table :inter_library_loans do |t|
-      t.integer :item_id, :null => false
-      t.integer :borrowing_library_id, :null => false
+      t.integer :item_id, null: false
+      t.integer :borrowing_library_id, null: false
       t.timestamp :requested_at
       t.timestamp :shipped_at
       t.timestamp :received_at

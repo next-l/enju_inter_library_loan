@@ -35,37 +35,37 @@ class InterLibraryLoan < ActiveRecord::Base
 
   def do_request
     InterLibraryLoan.transaction do
-      item.update_attributes({:circulation_status => CirculationStatus.where(:name => 'Recalled').first})
-      update_attributes({:requested_at => Time.zone.now})
+      item.update_attributes({circulation_status: CirculationStatus.where(name: 'Recalled').first})
+      update_attributes({requested_at: Time.zone.now})
     end
   end
 
   def ship
     InterLibraryLoan.transaction do
-      item.update_attributes({:circulation_status => CirculationStatus.where(:name => 'In Transit Between Library Locations').first})
-      update_attributes({:shipped_at => Time.zone.now})
+      item.update_attributes({circulation_status: CirculationStatus.where(name: 'In Transit Between Library Locations').first})
+      update_attributes({shipped_at: Time.zone.now})
     end
   end
 
   def receive
     InterLibraryLoan.transaction do
-      item.update_attributes({:circulation_status => CirculationStatus.where(:name => 'In Process').first})
-      update_attributes({:received_at => Time.zone.now})
+      item.update_attributes({circulation_status: CirculationStatus.where(name: 'In Process').first})
+      update_attributes({received_at: Time.zone.now})
     end
   end
 
   def return_ship
     InterLibraryLoan.transaction do
-      item.update_attributes({:circulation_status => CirculationStatus.where(:name => 'In Transit Between Library Locations').first})
-      update_attributes({:return_shipped_at => Time.zone.now})
+      item.update_attributes({circulation_status: CirculationStatus.where(name: 'In Transit Between Library Locations').first})
+      update_attributes({return_shipped_at: Time.zone.now})
     end
   end
 
   def return_receive
     InterLibraryLoan.transaction do
       # TODO: 'Waiting To Be Reshelved'
-      item.update_attributes({:circulation_status => CirculationStatus.where(:name => 'Available On Shelf').first})
-      update_attributes({:return_received_at => Time.zone.now})
+      item.update_attributes({circulation_status: CirculationStatus.where(name: 'Available On Shelf').first})
+      update_attributes({return_received_at: Time.zone.now})
     end
   end
 
