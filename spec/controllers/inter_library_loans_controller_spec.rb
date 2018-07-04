@@ -55,7 +55,7 @@ describe InterLibraryLoansController do
 
       it "assigns the requested inter_library_loan as @inter_library_loan" do
         inter_library_loan = FactoryBot.create(:inter_library_loan)
-        get :show, id: inter_library_loan.id
+        get :show, params: { id: inter_library_loan.id }
         assigns(:inter_library_loan).should eq(inter_library_loan)
       end
     end
@@ -67,7 +67,7 @@ describe InterLibraryLoansController do
 
       it "assigns the requested inter_library_loan as @inter_library_loan" do
         inter_library_loan = FactoryBot.create(:inter_library_loan)
-        get :show, id: inter_library_loan.id
+        get :show, params: { id: inter_library_loan.id }
         assigns(:inter_library_loan).should eq(inter_library_loan)
       end
     end
@@ -79,7 +79,7 @@ describe InterLibraryLoansController do
 
       it "assigns the requested inter_library_loan as @inter_library_loan" do
         inter_library_loan = FactoryBot.create(:inter_library_loan)
-        get :show, id: inter_library_loan.id
+        get :show, params: { id: inter_library_loan.id }
         assigns(:inter_library_loan).should eq(inter_library_loan)
       end
     end
@@ -87,7 +87,7 @@ describe InterLibraryLoansController do
     describe "When not logged in" do
       it "assigns the requested inter_library_loan as @inter_library_loan" do
         inter_library_loan = FactoryBot.create(:inter_library_loan)
-        get :show, id: inter_library_loan.id
+        get :show, params: { id: inter_library_loan.id }
         assigns(:inter_library_loan).should eq(inter_library_loan)
       end
     end
@@ -145,7 +145,7 @@ describe InterLibraryLoansController do
 
       it "assigns the requested inter_library_loan as @inter_library_loan" do
         inter_library_loan = FactoryBot.create(:inter_library_loan)
-        get :edit, id: inter_library_loan.id
+        get :edit, params: { id: inter_library_loan.id }
         assigns(:inter_library_loan).should eq(inter_library_loan)
       end
     end
@@ -157,7 +157,7 @@ describe InterLibraryLoansController do
 
       it "assigns the requested inter_library_loan as @inter_library_loan" do
         inter_library_loan = FactoryBot.create(:inter_library_loan)
-        get :edit, id: inter_library_loan.id
+        get :edit, params: { id: inter_library_loan.id }
         assigns(:inter_library_loan).should eq(inter_library_loan)
       end
     end
@@ -169,7 +169,7 @@ describe InterLibraryLoansController do
 
       it "assigns the requested inter_library_loan as @inter_library_loan" do
         inter_library_loan = FactoryBot.create(:inter_library_loan)
-        get :edit, id: inter_library_loan.id
+        get :edit, params: { id: inter_library_loan.id }
         response.should be_forbidden
       end
     end
@@ -177,7 +177,7 @@ describe InterLibraryLoansController do
     describe "When not logged in" do
       it "should not assign the requested inter_library_loan as @inter_library_loan" do
         inter_library_loan = FactoryBot.create(:inter_library_loan)
-        get :edit, id: inter_library_loan.id
+        get :edit, params: { id: inter_library_loan.id }
         response.should redirect_to(new_user_session_url)
       end
     end
