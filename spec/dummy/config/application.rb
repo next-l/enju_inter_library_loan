@@ -4,6 +4,7 @@ require 'rails/all'
 
 Bundler.require(*Rails.groups)
 require "enju_inter_library_loan"
+require "enju_leaf"
 
 module Dummy
   class Application < Rails::Application
