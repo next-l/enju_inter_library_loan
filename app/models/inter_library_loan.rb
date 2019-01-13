@@ -19,7 +19,7 @@ class InterLibraryLoan < ActiveRecord::Base
     InterLibraryLoanStateMachine.new(self, transition_class: InterLibraryLoanTransition)
   end
 
-  has_many :inter_library_loan_transitions
+  has_many :inter_library_loan_transitions, autosave: false
 
   delegate :can_transition_to?, :transition_to!, :transition_to, :current_state,
     to: :state_machine
@@ -92,6 +92,6 @@ end
 #  return_shipped_at    :datetime
 #  return_received_at   :datetime
 #  deleted_at           :datetime
-#  created_at           :datetime         not null
-#  updated_at           :datetime         not null
+#  created_at           :datetime
+#  updated_at           :datetime
 #

@@ -1,4 +1,4 @@
-class CreateInterLibraryLoanTransitions < ActiveRecord::Migration[5.1]
+class CreateInterLibraryLoanTransitions < ActiveRecord::Migration[4.2]
   def change
     create_table :inter_library_loan_transitions do |t|
       t.string :to_state

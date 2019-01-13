@@ -1,46 +1,46 @@
 inter_library_loan_00001:
-  item_id: 17eaea41-eacb-4e08-8e0b-70c6e62e3ed3
-  borrowing_library_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
+  item_id: 1
+  borrowing_library_id: 1
   shipped_at: 2008-03-19 13:48:29
   received_at: 2008-03-19 13:48:29
   return_shipped_at: 2008-03-19 13:48:29
   return_received_at: 2008-03-19 13:48:29
   id: 1
 inter_library_loan_00002:
-  item_id: d08f854f-07ef-46e6-a461-0bb658032c4b
-  borrowing_library_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
+  item_id: 2
+  borrowing_library_id: 1
   shipped_at: 2008-03-19 13:48:29
   received_at: 2008-03-19 13:48:29
   return_shipped_at: 2008-03-19 13:48:29
   return_received_at: 2008-03-19 13:48:29
   id: 2
 inter_library_loan_00003:
-  item_id: 77a1c54a-d903-4b9d-b35c-4aa0be1c56ef
-  borrowing_library_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
+  item_id: 3
+  borrowing_library_id: 1
   shipped_at: 2008-03-19 13:48:29
   received_at: 2008-03-19 13:48:29
   return_shipped_at: 2008-03-19 13:48:29
   return_received_at: 2008-03-19 13:48:29
   id: 3
 inter_library_loan_00004:
-  item_id: deb7a2a8-7fde-4735-88cd-b4b8c5cf8b85
-  borrowing_library_id: 8fe7dd9b-7387-4f80-a656-109127a925eb
+  item_id: 4
+  borrowing_library_id: 2
   shipped_at: 2008-03-19 13:48:29
   received_at: 2008-03-19 13:48:29
   return_shipped_at: 2008-03-19 13:48:29
   return_received_at: 2008-03-19 13:48:29
   id: 4
 inter_library_loan_00005:
-  item_id: 130bed42-5794-4403-9c8e-40a921a9258a
-  borrowing_library_id: 74e0e7cd-74c1-4e55-ac02-d0e476b39b3b
+  item_id: 5
+  borrowing_library_id: 3
   shipped_at: 2008-03-19 13:48:29
   received_at: 2008-03-19 13:48:29
   return_shipped_at: 2008-03-19 13:48:29
   return_received_at: 2008-03-19 13:48:29
   id: 5
 inter_library_loan_00006:
-  item_id: 804a744a-3d95-439e-8853-61c21ba704d1
-  borrowing_library_id: 74e0e7cd-74c1-4e55-ac02-d0e476b39b3b
+  item_id: 6
+  borrowing_library_id: 3
   requested_at: 2008-03-19 13:48:29
   shipped_at: 
   received_at: 
@@ -48,8 +48,8 @@ inter_library_loan_00006:
   return_received_at: 
   id: 6
 inter_library_loan_00007:
-  item_id: dc4cd3f3-0b3d-4b81-9a1a-9ebdfb484131
-  borrowing_library_id: 74e0e7cd-74c1-4e55-ac02-d0e476b39b3b
+  item_id: 7
+  borrowing_library_id: 3
   requested_at: 2008-03-19 13:48:29
   shipped_at: 2008-03-19 13:48:29
   received_at: 

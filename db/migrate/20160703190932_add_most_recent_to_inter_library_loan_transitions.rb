@@ -1,4 +1,4 @@
-class AddMostRecentToInterLibraryLoanTransitions < ActiveRecord::Migration[5.1]
+class AddMostRecentToInterLibraryLoanTransitions < ActiveRecord::Migration[4.2]
   def up
     add_column :inter_library_loan_transitions, :most_recent, :boolean, null: true
   end
