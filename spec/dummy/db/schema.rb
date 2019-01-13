@@ -220,7 +220,7 @@ ActiveRecord::Schema.define(version: 2018_01_07_164929) do
     t.datetime "updated_at"
     t.string "attachment_file_name"
     t.string "attachment_content_type"
-    t.integer "attachment_file_size"
+    t.bigint "attachment_file_size"
     t.datetime "attachment_updated_at"
   end
 
@@ -467,20 +467,20 @@ ActiveRecord::Schema.define(version: 2018_01_07_164929) do
     t.index ["user_id"], name: "index_import_requests_on_user_id"
   end
 
-  create_table "inter_library_loan_transitions", id: :serial, force: :cascade do |t|
+  create_table "inter_library_loan_transitions", force: :cascade do |t|
     t.string "to_state"
     t.text "metadata", default: "{}"
     t.integer "sort_key"
     t.integer "inter_library_loan_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean "most_recent", null: false
     t.index ["inter_library_loan_id", "most_recent"], name: "index_inter_library_loan_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["inter_library_loan_id"], name: "index_inter_library_loan_transitions_on_inter_library_loan_id"
     t.index ["sort_key", "inter_library_loan_id"], name: "index_inter_library_loan_transitions_on_sort_key_and_loan_id", unique: true
   end
 
-  create_table "inter_library_loans", id: :serial, force: :cascade do |t|
+  create_table "inter_library_loans", force: :cascade do |t|
     t.integer "item_id", null: false
     t.integer "borrowing_library_id", null: false
     t.datetime "requested_at"
@@ -489,8 +489,8 @@ ActiveRecord::Schema.define(version: 2018_01_07_164929) do
     t.datetime "return_shipped_at"
     t.datetime "return_received_at"
     t.datetime "deleted_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["borrowing_library_id"], name: "index_inter_library_loans_on_borrowing_library_id"
     t.index ["item_id"], name: "index_inter_library_loans_on_item_id"
   end
@@ -595,17 +595,6 @@ ActiveRecord::Schema.define(version: 2018_01_07_164929) do
     t.index ["name"], name: "index_libraries_on_name"
   end
 
-  create_table "library_group_translations", force: :cascade do |t|
-    t.integer "library_group_id", null: false
-    t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "login_banner"
-    t.text "footer_banner"
-    t.index ["library_group_id"], name: "index_library_group_translations_on_library_group_id"
-    t.index ["locale"], name: "index_library_group_translations_on_locale"
-  end
-
   create_table "library_groups", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.text "display_name"
@@ -628,7 +617,7 @@ ActiveRecord::Schema.define(version: 2018_01_07_164929) do
     t.boolean "csv_charset_conversion", default: false, null: false
     t.string "header_logo_file_name"
     t.string "header_logo_content_type"
-    t.integer "header_logo_file_size"
+    t.bigint "header_logo_file_size"
     t.datetime "header_logo_updated_at"
     t.text "header_logo_meta"
     t.index ["short_name"], name: "index_library_groups_on_short_name"
@@ -1038,7 +1027,7 @@ ActiveRecord::Schema.define(version: 2018_01_07_164929) do
     t.integer "user_id"
     t.string "resource_export_file_name"
     t.string "resource_export_content_type"
-    t.integer "resource_export_file_size"
+    t.bigint "resource_export_file_size"
     t.datetime "resource_export_updated_at"
     t.datetime "executed_at"
     t.datetime "created_at"
@@ -1245,7 +1234,7 @@ ActiveRecord::Schema.define(version: 2018_01_07_164929) do
     t.integer "user_id"
     t.string "user_export_file_name"
     t.string "user_export_content_type"
-    t.integer "user_export_file_size"
+    t.bigint "user_export_file_size"
     t.datetime "user_export_updated_at"
     t.datetime "executed_at"
     t.datetime "created_at"

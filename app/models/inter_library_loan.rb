@@ -83,7 +83,7 @@ end
 #
 # Table name: inter_library_loans
 #
-#  id                   :integer          not null, primary key
+#  id                   :bigint(8)        not null, primary key
 #  item_id              :integer          not null
 #  borrowing_library_id :integer          not null
 #  requested_at         :datetime
@@ -92,6 +92,6 @@ end
 #  return_shipped_at    :datetime
 #  return_received_at   :datetime
 #  deleted_at           :datetime
-#  created_at           :datetime
-#  updated_at           :datetime
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
 #

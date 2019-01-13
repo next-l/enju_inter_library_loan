@@ -1,4 +1,4 @@
-class CreateInterLibraryLoans < ActiveRecord::Migration[4.2]
+class CreateInterLibraryLoans < ActiveRecord::Migration[5.2]
   def self.up
     create_table :inter_library_loans do |t|
       t.integer :item_id, null: false
