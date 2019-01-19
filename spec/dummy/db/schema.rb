@@ -489,14 +489,13 @@ ActiveRecord::Schema.define(version: 2019_01_02_034126) do
   end
 
   create_table "inter_library_loans", force: :cascade do |t|
-    t.integer "item_id", null: false
-    t.integer "borrowing_library_id", null: false
+    t.bigint "item_id", null: false
+    t.bigint "borrowing_library_id", null: false
     t.datetime "requested_at"
     t.datetime "shipped_at"
     t.datetime "received_at"
     t.datetime "return_shipped_at"
     t.datetime "return_received_at"
-    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["borrowing_library_id"], name: "index_inter_library_loans_on_borrowing_library_id"
@@ -1472,6 +1471,8 @@ ActiveRecord::Schema.define(version: 2019_01_02_034126) do
   add_foreign_key "demands", "users"
   add_foreign_key "doi_records", "manifestations"
   add_foreign_key "import_requests", "users"
+  add_foreign_key "inter_library_loans", "items"
+  add_foreign_key "inter_library_loans", "libraries", column: "borrowing_library_id"
   add_foreign_key "isbn_record_and_manifestations", "isbn_records"
   add_foreign_key "isbn_record_and_manifestations", "manifestations"
   add_foreign_key "issn_record_and_manifestations", "issn_records"
