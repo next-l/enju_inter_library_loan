@@ -19,7 +19,7 @@ gem "enju_circulation", github: "next-l/enju_circulation"
 gem "enju_event", github: "next-l/enju_event"
 gem "enju_manifestation_viewer", github: "next-l/enju_manifestation_viewer"
 gem 'jquery-rails'
-gem 'mobility'
+gem 'json_translate'
 gem 'rspec_junit_formatter'
 
 # To use debugger

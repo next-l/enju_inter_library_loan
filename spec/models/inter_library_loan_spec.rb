@@ -11,8 +11,8 @@ end
 # Table name: inter_library_loans
 #
 #  id                   :bigint(8)        not null, primary key
-#  item_id              :bigint(8)        not null
-#  borrowing_library_id :bigint(8)        not null
+#  item_id              :uuid             not null
+#  borrowing_library_id :uuid             not null
 #  requested_at         :datetime
 #  shipped_at           :datetime
 #  received_at          :datetime
