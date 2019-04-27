@@ -10,7 +10,7 @@ end
 #
 # Table name: inter_library_loan_transitions
 #
-#  id                    :bigint(8)        not null, primary key
+#  id                    :bigint           not null, primary key
 #  to_state              :string
 #  metadata              :text             default({})
 #  sort_key              :integer
