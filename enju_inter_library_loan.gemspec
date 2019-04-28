@@ -27,4 +27,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "sunspot_solr", "~> 2.3"
   s.add_development_dependency "simplecov"
   s.add_development_dependency "coveralls"
+  s.add_development_dependency "annotate"
 end
