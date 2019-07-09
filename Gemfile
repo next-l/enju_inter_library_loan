@@ -20,8 +20,12 @@ gem "enju_event", github: "next-l/enju_event"
 gem "enju_manifestation_viewer", github: "next-l/enju_manifestation_viewer"
 gem 'jquery-rails'
 gem 'json_translate'
-gem 'rspec_junit_formatter'
+gem 'paper_trail'
+gem 'jbuilder'
+group :test do
+  gem 'rails-controller-testing'
+  gem 'rspec_junit_formatter'
+end
 
 # To use debugger
 # gem 'debugger'
-gem 'rails-controller-testing'

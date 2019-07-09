@@ -5,12 +5,12 @@
 
 <p>
   <strong><%= t('activerecord.models.library') -%>:</strong>
-  <%= link_to @inter_library_loan.item.shelf.library.display_name, @inter_library_loan.item.shelf.library -%>
+  <%= link_to @inter_library_loan.item.shelf.library.display_name.localize, @inter_library_loan.item.shelf.library -%>
 </p>
 
 <p>
   <strong><%= t('inter_library_loan.borrowing_library') -%>:</strong>
-  <%= link_to @inter_library_loan.borrowing_library.display_name, @inter_library_loan.borrowing_library -%>
+  <%= link_to @inter_library_loan.borrowing_library.display_name.localize, @inter_library_loan.borrowing_library -%>
 </p>
 
 <p>

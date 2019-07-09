@@ -10,14 +10,15 @@ end
 #
 # Table name: inter_library_loans
 #
-#  id                   :bigint           not null, primary key
-#  item_id              :bigint           not null
-#  borrowing_library_id :bigint           not null
+#  id                   :integer          not null, primary key
+#  item_id              :integer          not null
+#  borrowing_library_id :integer          not null
 #  requested_at         :datetime
 #  shipped_at           :datetime
 #  received_at          :datetime
 #  return_shipped_at    :datetime
 #  return_received_at   :datetime
-#  created_at           :datetime         not null
-#  updated_at           :datetime         not null
+#  deleted_at           :datetime
+#  created_at           :datetime
+#  updated_at           :datetime
 #
