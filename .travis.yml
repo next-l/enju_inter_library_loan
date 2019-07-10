@@ -16,11 +16,16 @@ after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 services:
   - redis-server
-env:
-  - DB=postgresql
 notifications:
   slack:
     secure: H47CWe0kjyXGsaSOtjt22kVvJ8ixbMrvF9imV2nxCUzqK7oens8xNE6VqB3JQ2Rb5n6NMZHpR2cCcG8jcSRm9ZmGgOHLaUdxRxVqTJ1dgD64j1/wNlpNGUp3eAo8XurarmF+06DBOLgiNG65mNmcQ2HFxDC0Vbhxwt4F1IvTlLU=
 sudo: false
 addons:
-  postgresql: "9.6"
+  postgresql: "10"
+  apt:
+    packages:
+    - postgresql-10
+    - postgresql-client-10
+jdk:
+  - openjdk8
+dist: xenial
