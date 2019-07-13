@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_08_044909) do
+ActiveRecord::Schema.define(version: 2019_07_12_163038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(version: 2019_07_08_044909) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.jsonb "display_name_translations", default: {}, null: false
   end
 
   create_table "agent_relationships", id: :serial, force: :cascade do |t|
@@ -111,6 +112,7 @@ ActiveRecord::Schema.define(version: 2019_07_08_044909) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.jsonb "display_name_translations", default: {}, null: false
   end
 
   create_table "agents", id: :serial, force: :cascade do |t|
@@ -332,6 +334,7 @@ ActiveRecord::Schema.define(version: 2019_07_08_044909) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.jsonb "display_name_translations", default: {}, null: false
   end
 
   create_table "countries", id: :serial, force: :cascade do |t|
@@ -355,6 +358,7 @@ ActiveRecord::Schema.define(version: 2019_07_08_044909) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.jsonb "display_name_translations", default: {}, null: false
   end
 
   create_table "creates", id: :serial, force: :cascade do |t|
@@ -395,6 +399,7 @@ ActiveRecord::Schema.define(version: 2019_07_08_044909) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.jsonb "display_name_translations", default: {}, null: false
   end
 
   create_table "frequencies", id: :serial, force: :cascade do |t|
@@ -404,6 +409,7 @@ ActiveRecord::Schema.define(version: 2019_07_08_044909) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.jsonb "display_name_translations", default: {}, null: false
   end
 
   create_table "identifier_types", id: :serial, force: :cascade do |t|
@@ -530,6 +536,7 @@ ActiveRecord::Schema.define(version: 2019_07_08_044909) do
     t.string "iso_639_3"
     t.text "note"
     t.integer "position"
+    t.jsonb "display_name_translations", default: {}, null: false
     t.index ["iso_639_1"], name: "index_languages_on_iso_639_1"
     t.index ["iso_639_2"], name: "index_languages_on_iso_639_2"
     t.index ["iso_639_3"], name: "index_languages_on_iso_639_3"
@@ -619,6 +626,7 @@ ActiveRecord::Schema.define(version: 2019_07_08_044909) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.jsonb "display_name_translations", default: {}, null: false
   end
 
   create_table "manifestation_checkout_stat_transitions", id: :serial, force: :cascade do |t|
@@ -653,6 +661,7 @@ ActiveRecord::Schema.define(version: 2019_07_08_044909) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.jsonb "display_name_translations", default: {}, null: false
   end
 
   create_table "manifestation_relationships", id: :serial, force: :cascade do |t|
@@ -763,6 +772,7 @@ ActiveRecord::Schema.define(version: 2019_07_08_044909) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.jsonb "display_name_translations", default: {}, null: false
   end
 
   create_table "message_request_transitions", id: :serial, force: :cascade do |t|
@@ -869,6 +879,7 @@ ActiveRecord::Schema.define(version: 2019_07_08_044909) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.jsonb "display_name_translations", default: {}, null: false
   end
 
   create_table "produces", id: :serial, force: :cascade do |t|
@@ -913,6 +924,7 @@ ActiveRecord::Schema.define(version: 2019_07_08_044909) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.jsonb "display_name_translations", default: {}, null: false
   end
 
   create_table "realizes", id: :serial, force: :cascade do |t|
