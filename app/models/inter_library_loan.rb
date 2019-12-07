@@ -1,5 +1,8 @@
 class InterLibraryLoan < ActiveRecord::Base
-  include Statesman::Adapters::ActiveRecordQueries
+  include Statesman::Adapters::ActiveRecordQueries[
+    transition_class: ImportRequestTransition,
+    initial_state: :pending
+  ]
   scope :completed, -> {in_state(:return_received)}
   scope :processing, lambda {|item, borrowing_library| where('item_id = ? AND borrowing_library_id = ?', item.id, borrowing_library.id)}
 
@@ -67,15 +70,6 @@ class InterLibraryLoan < ActiveRecord::Base
       item.update_attributes({circulation_status: CirculationStatus.where(name: 'Available On Shelf').first})
       update_attributes({return_received_at: Time.zone.now})
     end
-  end
-
-  private
-  def self.transition_class
-    InterLibraryLoanTransition
-  end
-
-  def self.initial_state
-    OrderStateMachine.initial_state
   end
 end
 
